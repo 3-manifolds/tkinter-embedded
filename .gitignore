@@ -1,0 +1,13 @@
+*.pyc
+*.egg-info
+*.framework
+__pycache__
+notabot.cfg
+temp
+build
+dist
+dynload
+Tcl_Headers
+Tk_Headers
+src/tkinter_embedded/*.py
+!src/tkinter_emvedded/version.py

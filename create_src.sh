@@ -42,6 +42,8 @@ case ${UNAME} in
 	    popd
 	    mv temp/frameworks/Frameworks/Tk.framework src/tkinter_embedded
 	    mv temp/frameworks/Frameworks/Tcl.framework src/tkinter_embedded
+	    ln -s src/tkinter_embedded/Tcl.framework/Versions/Current/Headers Tcl_Headers
+	    ln -s src/tkinter_embedded/Tk.framework/Versions/Current/Headers Tk_Headers
 	fi
 	;;
     "Linux")
