@@ -51,6 +51,10 @@ jobs:
           echo -e "password = $DEV_PASSWORD\n"  >> notabot.cfg
           echo -e "[entitlements]\nplist_file = entitlements.plist"  >> notabot.cfg
 
+      - name: Install notabot
+        run: |
+          python3 -m pip install notabot
+
       - name: Build the wheel
         run: |
           make
