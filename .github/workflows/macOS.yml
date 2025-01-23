@@ -50,9 +50,6 @@ jobs:
           echo -e "username = $DEV_USERNAME"  >> notabot.cfg
           echo -e "password = $DEV_PASSWORD\n"  >> notabot.cfg
           echo -e "[entitlements]\nplist_file = entitlements.plist"  >> notabot.cfg
-          echo -e "[paths]\nbundle_path = dist/SnapPy.app" >> notabot.cfg
-          echo -e "dmg_path = disk_images/SnapPy.dmg" >> notabot.cfg
-          cp notabot.cfg snappy/macOS_app
 
       - name: Build the wheel
         run: |
