@@ -3,23 +3,8 @@ name: macOS
 on: [push]
 
 jobs:
-  build_app:
-    name: Build macOS wheel for tkinter-embedded
-    runs-on: macos-latest
-
+  setup_codesigning:
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-
-      - name: Clone repo
-        run: |
-          git clone https://github.com/3-manifolds/tkinter-embedded
-
       - name: Install the Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
@@ -50,15 +35,32 @@ jobs:
           echo -e "username = $DEV_USERNAME"  >> notabot.cfg
           echo -e "password = $DEV_PASSWORD\n"  >> notabot.cfg
           echo -e "[entitlements]\nplist_file = entitlements.plist"  >> notabot.cfg
+    
+  build_wheels:
+    name: Build macOS wheel for tkinter-embedded
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: ['3.12', '3.13']
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Install pypi packages
         run: |
-          python3 -m pip install build notabot
+          python -m pip install build notabot
 
       - name: Build the wheel
         run: |
           make
 
+  upload_artifacts:
+    steps:
       - uses: actions/upload-artifact@v4
         with:
           name: tkinter_embedded
