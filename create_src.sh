@@ -35,6 +35,7 @@ case ${UNAME} in
     "Darwin")
 	if ! [ -e src/Tcl.framework ] || ! [ -e src/Tk.framework ]; then
 	    bash build_TclTk.sh
+	    rm -rf src/Tcl.framework src/Tk.framework
 	    mv build/dist/Frameworks/Tk.framework src/tkinter_embedded
 	    mv build/dist/Frameworks/Tcl.framework src/tkinter_embedded
 	    ln -s src/tkinter_embedded/Tcl.framework/Versions/Current/Headers Tcl_Headers
