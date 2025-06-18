@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tkinter-embedded"
+license = "MIT"
 dynamic = ["version"]
 description = "tkinter for Tcl/Tk 9.0"
 readme = {file = "README.rst", content-type = "text/x-rst"}
@@ -18,7 +19,6 @@ keywords = ["tkinter", "Tk", "Tcl"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: End Users/Desktop",
-    "License :: MIT",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Topic :: Utilities"
