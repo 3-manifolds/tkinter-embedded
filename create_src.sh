@@ -9,17 +9,19 @@ HASH=b3d8c043dcdd52d55d48769a95c8e7d1
 if ! [ -e src ] || ! [ -e dynload ]; then
     rm -rf build
     mkdir build
-    cd build
-    if ! [ -e $SRC_DIR ]; then
+    if ! [ -e ${SRC_ARCHIVE} ]; then
 	curl -L -O $URL
 	ACTUAL_HASH=`md5 -q ${SRC_ARCHIVE}`
 	if [[ ${ACTUAL_HASH} != ${HASH} ]]; then
 	    echo Invalid hash value for ${SRC_ARCHIVE}
 	    exit 1
-	fi
-	tar xfz $SRC_ARCHIVE
+	fi    fi
+    pushd  build
+    if ! [ -e $SRC_DIR ]; then
+	tar xfz ../$SRC_ARCHIVE
+	ln -s ${SRC_DIR} Python
     fi
-    cd ..
+    popd
     mkdir -p src/tkinter_embedded
     cp build/$SRC_DIR/Lib/tkinter/* src/tkinter_embedded
     mkdir -p dynload/clinic

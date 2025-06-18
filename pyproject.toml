@@ -28,7 +28,7 @@ classifiers = [
 name = "_tkinter"
 sources = ["dynload/_tkinter.c"]
 include-dirs = [
-"temp/Python-3.13.1/Include/internal",
+"build/Python/Include/internal",
 "Tcl_Headers",
 "Tk_Headers",
 ]
