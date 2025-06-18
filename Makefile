@@ -14,10 +14,9 @@ dist: setup
 	env PIP_CONFIG_FILE=/dev/null python3 -m build --sdist --wheel .
 
 clean:
-	rm -rf build dist */*.egg-info
+	rm -rf build */*.egg-info
 	rm -rf `find . -name __pycache__`
-	rm -rf temp dynload
-	rm -f Tcl_Headers Tk_Headers
+	rm -rf dynload
 	find src/tkinter_embedded -not -name 'version.py' -delete
 
 testpypi-upload:
