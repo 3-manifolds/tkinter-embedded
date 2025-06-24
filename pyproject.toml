@@ -1,3 +1,7 @@
+# This project file builds the tkinter_embedded extension for the
+# current version of an installed python.org distribution.
+# I.e. /Library/Frameworks/Python.framework/Versions/Current
+#
 [build-system]
 requires = ["setuptools>=74.1", "wheel"]
 build-backend = "setuptools.build_meta"
@@ -6,14 +10,15 @@ build-backend = "setuptools.build_meta"
 name = "tkinter-embedded"
 license = "MIT"
 dynamic = ["version"]
-description = "tkinter for Tcl/Tk 9.0"
+description = "tkinter replacement using Tcl/Tk 9"
 readme = {file = "README.rst", content-type = "text/x-rst"}
 authors = [
     { name="Marc Culler", email="culler@users.noreply.github.com" },
+    { name="Nathan Dunfiled", email="nathan@dunfield.info" },
 ]
 maintainers = [
     { name="Marc Culler", email="culler@users.noreply.github.com" },
-]
+    { name="Nathan Dunfiled", email="nathan@dunfield.info" },]
 requires-python = ">=3.8"
 keywords = ["tkinter", "Tk", "Tcl"]
 classifiers = [
@@ -25,18 +30,18 @@ classifiers = [
 ]
 
 [[tool.setuptools.ext-modules]]
-name = "_tkinter"
+name = "tkinter_embedded._tkinter"
 sources = ["dynload/_tkinter.c"]
 include-dirs = [
-"build/Python/Include/internal",
-"Tcl_Headers",
-"Tk_Headers",
-]
+  "/Library/Frameworks/Python.framework/Headers/internal",
+  "Tcl_Headers",
+  "Tk_Headers",
+  ]
 extra-link-args = [
   "src/tkinter_embedded/Tcl.framework/Tcl",
   "src/tkinter_embedded/Tk.framework/Tk",
-  "-Wl,-rpath,@loader_path/../tkinter_embedded/Tcl.framework",
-  "-Wl,-rpath,@loader_path/../tkinter_embedded/Tk.framework",
+  "-Wl,-rpath,@loader_path/Tcl.framework",
+  "-Wl,-rpath,@loader_path/Tk.framework",
   ]
 
 [tool.setuptools.package-data]

@@ -1,0 +1,275 @@
+diff -rc src/tkinter_embedded/__init__.py patched_src/tkinter_embedded/__init__.py
+*** src/tkinter_embedded/__init__.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/__init__.py	Thu Jun 19 08:05:14 2025
+***************
+*** 18,25 ****
+  command) or with the method bind.
+  
+  Example (Hello, World):
+! import tkinter
+! from tkinter.constants import *
+  tk = tkinter.Tk()
+  frame = tkinter.Frame(tk, relief=RIDGE, borderwidth=2)
+  frame.pack(fill=BOTH,expand=1)
+--- 18,25 ----
+  command) or with the method bind.
+  
+  Example (Hello, World):
+! import tkinter_embedded as tkinter
+! from tkinter_embedded.constants import *
+  tk = tkinter.Tk()
+  frame = tkinter.Frame(tk, relief=RIDGE, borderwidth=2)
+  frame.pack(fill=BOTH,expand=1)
+***************
+*** 35,43 ****
+  import sys
+  import types
+  
+! import _tkinter # If this fails your Python may not be configured for Tk
+  TclError = _tkinter.TclError
+! from tkinter.constants import *
+  import re
+  
+  wantobjects = 1
+--- 35,43 ----
+  import sys
+  import types
+  
+! from . import _tkinter # If this fails your Python may not be configured for Tk
+  TclError = _tkinter.TclError
+! from tkinter_embedded.constants import *
+  import re
+  
+  wantobjects = 1
+***************
+*** 2518,2524 ****
+          base_tcl = os.path.join(home, '.%s.tcl' % baseName)
+          base_py = os.path.join(home, '.%s.py' % baseName)
+          dir = {'self': self}
+!         exec('from tkinter import *', dir)
+          if os.path.isfile(class_tcl):
+              self.tk.call('source', class_tcl)
+          if os.path.isfile(class_py):
+--- 2518,2524 ----
+          base_tcl = os.path.join(home, '.%s.tcl' % baseName)
+          base_py = os.path.join(home, '.%s.py' % baseName)
+          dir = {'self': self}
+!         exec('from tkinter_embedded import *', dir)
+          if os.path.isfile(class_tcl):
+              self.tk.call('source', class_tcl)
+          if os.path.isfile(class_py):
+diff -rc src/tkinter_embedded/colorchooser.py patched_src/tkinter_embedded/colorchooser.py
+*** src/tkinter_embedded/colorchooser.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/colorchooser.py	Thu Jun 19 08:05:14 2025
+***************
+*** 9,15 ****
+  #
+  
+  
+! from tkinter.commondialog import Dialog
+  
+  __all__ = ["Chooser", "askcolor"]
+  
+--- 9,15 ----
+  #
+  
+  
+! from tkinter_embedded.commondialog import Dialog
+  
+  __all__ = ["Chooser", "askcolor"]
+  
+diff -rc src/tkinter_embedded/commondialog.py patched_src/tkinter_embedded/commondialog.py
+*** src/tkinter_embedded/commondialog.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/commondialog.py	Thu Jun 19 08:05:14 2025
+***************
+*** 10,16 ****
+  
+  __all__ = ["Dialog"]
+  
+! from tkinter import _get_temp_root, _destroy_temp_root
+  
+  
+  class Dialog:
+--- 10,16 ----
+  
+  __all__ = ["Dialog"]
+  
+! from tkinter_embedded import _get_temp_root, _destroy_temp_root
+  
+  
+  class Dialog:
+diff -rc src/tkinter_embedded/dialog.py patched_src/tkinter_embedded/dialog.py
+*** src/tkinter_embedded/dialog.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/dialog.py	Thu Jun 19 08:05:14 2025
+***************
+*** 1,6 ****
+  # dialog.py -- Tkinter interface to the tk_dialog script.
+  
+! from tkinter import _cnfmerge, Widget, TclError, Button, Pack
+  
+  __all__ = ["Dialog"]
+  
+--- 1,6 ----
+  # dialog.py -- Tkinter interface to the tk_dialog script.
+  
+! from tkinter_embedded import _cnfmerge, Widget, TclError, Button, Pack
+  
+  __all__ = ["Dialog"]
+  
+diff -rc src/tkinter_embedded/dnd.py patched_src/tkinter_embedded/dnd.py
+*** src/tkinter_embedded/dnd.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/dnd.py	Thu Jun 19 08:05:14 2025
+***************
+*** 99,105 ****
+  
+  """
+  
+! import tkinter
+  
+  __all__ = ["dnd_start", "DndHandler"]
+  
+--- 99,105 ----
+  
+  """
+  
+! import tkinter_embedded as tkinter
+  
+  __all__ = ["dnd_start", "DndHandler"]
+  
+diff -rc src/tkinter_embedded/filedialog.py patched_src/tkinter_embedded/filedialog.py
+*** src/tkinter_embedded/filedialog.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/filedialog.py	Thu Jun 19 08:05:14 2025
+***************
+*** 18,30 ****
+  
+  import fnmatch
+  import os
+! from tkinter import (
+      Frame, LEFT, YES, BOTTOM, Entry, TOP, Button, Tk, X,
+      Toplevel, RIGHT, Y, END, Listbox, BOTH, Scrollbar,
+  )
+! from tkinter.dialog import Dialog
+! from tkinter import commondialog
+! from tkinter.simpledialog import _setup_dialog
+  
+  
+  dialogstates = {}
+--- 18,30 ----
+  
+  import fnmatch
+  import os
+! from tkinter_embedded import (
+      Frame, LEFT, YES, BOTTOM, Entry, TOP, Button, Tk, X,
+      Toplevel, RIGHT, Y, END, Listbox, BOTH, Scrollbar,
+  )
+! from tkinter_embedded.dialog import Dialog
+! from tkinter_embedded import commondialog
+! from tkinter_embedded.simpledialog import _setup_dialog
+  
+  
+  dialogstates = {}
+diff -rc src/tkinter_embedded/font.py patched_src/tkinter_embedded/font.py
+*** src/tkinter_embedded/font.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/font.py	Thu Jun 19 08:05:14 2025
+***************
+*** 4,10 ****
+  #
+  
+  import itertools
+! import tkinter
+  
+  __version__ = "0.9"
+  __all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC",
+--- 4,10 ----
+  #
+  
+  import itertools
+! import tkinter_embedded as tkinter
+  
+  __version__ = "0.9"
+  __all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC",
+diff -rc src/tkinter_embedded/scrolledtext.py patched_src/tkinter_embedded/scrolledtext.py
+*** src/tkinter_embedded/scrolledtext.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/scrolledtext.py	Thu Jun 19 08:05:14 2025
+***************
+*** 11,18 ****
+  Place methods are redirected to the Frame widget however.
+  """
+  
+! from tkinter import Frame, Text, Scrollbar, Pack, Grid, Place
+! from tkinter.constants import RIGHT, LEFT, Y, BOTH
+  
+  __all__ = ['ScrolledText']
+  
+--- 11,18 ----
+  Place methods are redirected to the Frame widget however.
+  """
+  
+! from tkinter_embedded import Frame, Text, Scrollbar, Pack, Grid, Place
+! from tkinter_embedded.constants import RIGHT, LEFT, Y, BOTH
+  
+  __all__ = ['ScrolledText']
+  
+***************
+*** 43,49 ****
+  
+  
+  def example():
+!     from tkinter.constants import END
+  
+      stext = ScrolledText(bg='white', height=10)
+      stext.insert(END, __doc__)
+--- 43,49 ----
+  
+  
+  def example():
+!     from tkinter_embedded.constants import END
+  
+      stext = ScrolledText(bg='white', height=10)
+      stext.insert(END, __doc__)
+diff -rc src/tkinter_embedded/simpledialog.py patched_src/tkinter_embedded/simpledialog.py
+*** src/tkinter_embedded/simpledialog.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/simpledialog.py	Thu Jun 19 08:05:14 2025
+***************
+*** 23,31 ****
+  askstring -- get a string from the user
+  """
+  
+! from tkinter import *
+! from tkinter import _get_temp_root, _destroy_temp_root
+! from tkinter import messagebox
+  
+  
+  class SimpleDialog:
+--- 23,31 ----
+  askstring -- get a string from the user
+  """
+  
+! from tkinter_embedded import *
+! from tkinter_embedded import _get_temp_root, _destroy_temp_root
+! from tkinter_embedded import messagebox
+  
+  
+  class SimpleDialog:
+diff -rc src/tkinter_embedded/ttk.py patched_src/tkinter_embedded/ttk.py
+*** src/tkinter_embedded/ttk.py	Thu Jun 19 08:42:23 2025
+--- patched_src/tkinter_embedded/ttk.py	Thu Jun 19 08:05:14 2025
+***************
+*** 25,32 ****
+             # functions
+             "tclobjs_to_py", "setup_master"]
+  
+! import tkinter
+! from tkinter import _flatten, _join, _stringify, _splitdict
+  
+  
+  def _format_optvalue(value, script=False):
+--- 25,32 ----
+             # functions
+             "tclobjs_to_py", "setup_master"]
+  
+! import tkinter_embedded as tkinter
+! from tkinter_embedded import _flatten, _join, _stringify, _splitdict
+  
+  
+  def _format_optvalue(value, script=False):

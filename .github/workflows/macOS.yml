@@ -46,10 +46,10 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
 
           # Create notabot config file
-          echo -e "[developer]\nidentity = $DEV_ID"  > notabot.cfg
-          echo -e "username = $DEV_USERNAME"  >> notabot.cfg
-          echo -e "password = $DEV_PASSWORD\n"  >> notabot.cfg
-          echo -e "[entitlements]\nplist_file = entitlements.plist"  >> notabot.cfg
+          echo -e "[developer]\nidentity = $DEV_ID"  > dev/3.13/notabot.cfg
+          echo -e "username = $DEV_USERNAME"  >> dev/3.13/notabot.cfg
+          echo -e "password = $DEV_PASSWORD\n"  >> dev/3.13/notabot.cfg
+          echo -e "[entitlements]\nplist_file = entitlements.plist"  >> dev/3.13/notabot.cfg
 
       - name: Install pypi packages
         run: |
@@ -62,4 +62,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: tkinter_embedded
-          path: dist/*.whl
+          path: dist/*
