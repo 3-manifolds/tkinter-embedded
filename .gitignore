@@ -16,4 +16,4 @@ src/tkinter_embedded/*.py
 dev/3.13/Python*
 dev/3.13/Tcl
 dev/3.13/Tk
-dev/3.13.tkinter_embedded
+dev/3.13/tkinter_embedded

@@ -30,3 +30,6 @@ mv dynload ../..
 rm -rf ../../src/tkinter_embedded/*.framework
 mv tkinter_embedded/*.framework ../../src/tkinter_embedded
 cp tkinter_embedded/*.py ../../src/tkinter_embedded
+rm -f ../../*_Headers
+ln -s src/tkinter_embedded/Tcl.framework/Versions/Current/Headers ../../Tcl_Headers
+ln -s src/tkinter_embedded/Tk.framework/Versions/Current/Headers ../../Tk_Headers

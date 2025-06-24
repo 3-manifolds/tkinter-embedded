@@ -33,6 +33,7 @@ clean:
 	rm -rf dynload
 	find src/tkinter_embedded -not -name 'version.py' -delete
 	rm -rf src/tkinter_embedded/*.framework
+	rm -f *_Headers
 
 testpypi-upload:
 	python3 -m twine upload --verbose --repository testpypi dist/*
